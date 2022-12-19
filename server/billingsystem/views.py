@@ -15,10 +15,11 @@ from tensorflow.keras.applications import mobilenet_v2
 import datetime
 import traceback
 import pandas as pd
+from .apps import ApiConfig
 
 def index(request):
     if  request.method == "POST":
-        f=request.FILES['sentFile'] # here you get the files needed
+        f=request.FILES['sentFile'] 
         response = {}
         file_name = "pic.jpg"
         label_df = pd.read_csv("static/labels/labels.csv")
@@ -29,12 +30,11 @@ def index(request):
         urlstr = str(file_url)
         newurl = urlstr[1:]
         original = load_img(newurl, target_size=(224, 224))
-        #original = load_img("static/testimg/1.jpg",target_size=(224, 224))
         numpy_image = img_to_array(original)
         image_batch = np.expand_dims(numpy_image, axis=0)
         pred_img = mobilenet_v2.preprocess_input(image_batch.copy())
-        #pred_generator = tf.keras.preprocessing.image.ImageDataGenerator(preprocessing_function=tf.keras.applications.mobilenet_v2.preprocess_input)
-        model = tf.keras.models.load_model('static/test')
+        model = ApiConfig.model
+        #model = tf.keras.models.load_model('static/test')
         pred = model.predict(pred_img)
         pred = np.argmax(pred,axis=1)
         predicted_label = [labels[k] for k in pred]

@@ -2,7 +2,7 @@
 ## Image Classification using tensorflow and UI using django
 - model - MobilenetV2
 - db - SQLite3
-- other libraries -
+
 ## Features
 
 - Detect products from image

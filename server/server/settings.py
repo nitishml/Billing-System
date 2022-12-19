@@ -130,3 +130,4 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+MODELS = os.path.join(BASE_DIR, 'models') ## <-- import os
